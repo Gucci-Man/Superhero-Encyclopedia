@@ -32,7 +32,7 @@ class User(db.Model):
 
     # TODO - add default image
     image_url = db.Column(
-        db.text,
+        db.Text,
         #default=
     )
 
@@ -50,7 +50,7 @@ class User(db.Model):
     )
 
     timestamp = db.Column(
-        db.Datetime,
+        db.DateTime,
         nullable=False,
         default=datetime.utcnow(),
     )
@@ -111,26 +111,41 @@ class Favorites(db.Model):
         db.ForeignKey('users.id', ondelete='cascade')
     )
 
-    superhero_id = db.Column(
-        db.Integer,
-        db.ForeignKey('superheros.id', ondelete='cascade')
-    )
-
     """ superhero_id = db.Column(
         db.Integer,
+        db.ForeignKey('superheros.id', ondelete='cascade')
     ) """
 
+    # id from API, so no need to set as foreign key
+    superhero_id = db.Column(
+        db.Integer,
+    )
+
+    rating = db.Column(
+        db.Integer,
+    )
+
+
+
 # TODO - would I want to create SQL tables for superheros if I am pulling data from APU?
-class Superhero(db.Model):
-    """superhero information
+""" class Superhero(db.Model):
+
+    # superhero information
     
-    If saving in database, we could add information like ratings and/or reviews
-    """
+    # If saving in database, we could add information like ratings and/or reviews
+    
 
     __tablename__ = 'superheros'
 
     id = db.Column(
         db.Integer,
         primary_key=True,
-    )
+    ) """
+
+def connect_db(app):
+    """Connecting this database to the lask app."""
+
+    db.app = app
+    db.init_app(app)
+
 
