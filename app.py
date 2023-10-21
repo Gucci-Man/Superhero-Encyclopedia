@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm
+from forms import UserAddForm, LoginForm, UserEditForm
 from models import db, connect_db, User, Favorites
 
 CURR_USER_KEY = "curr_user"
@@ -47,6 +47,7 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     """Route to sign up new user"""
@@ -73,6 +74,7 @@ def signup():
         
     return render_template("signup.html", form=form)
 
+
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
@@ -82,9 +84,47 @@ def logout():
     flash("You have successfully logged out.", "success")
     return redirect('/')
 
+############################################################################
+# User routes:
+
+@app.route("/users/<int:user_id>")
+def show_details(user_id):
+    """Show user profile"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    user = User.query.get_or_404(user_id)
+    return render_template('profile.html', user=user)
+
+
+@app.route("/users/edit", methods=['GET', 'POST'])
+def edit_user():
+    """Route to edit user profile"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    user = g.user
+    form = UserEditForm(obj=user)
+
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.email = form.email.data
+        user.image_url = form.image_url.data
+        user.location = form.location.data
+        user.bio = form.bio.data
+
+        db.session.commit()
+        return redirect(f"/users/{user.id}")
+    
+    return render_template('edit.html', form=form, user=user)
+
 
 ############################################################################
-# General user routes:
+# Main encyclopedia routes:
 
 @app.route('/info')
 def info():
@@ -93,8 +133,11 @@ def info():
     if not g.user:
         flash("Access unauthorized.", "danger")
         return redirect('/')
+    
+    user = User.query.get_or_404(g.user.id)
+    print(f"user is {user}")
 
-    return render_template("info.html")
+    return render_template("info.html", user=user)
 
 
 
