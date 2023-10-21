@@ -5,7 +5,6 @@ from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm
 from models import db, connect_db, User, Favorites
-from flask_bcrypt import Bcrypt
 
 CURR_USER_KEY = "curr_user"
 
@@ -74,6 +73,15 @@ def signup():
         
     return render_template("signup.html", form=form)
 
+@app.route('/logout')
+def logout():
+    """Handle logout of user."""
+
+    do_logout()
+
+    flash("You have successfully logged out.", "success")
+    return redirect('/')
+
 
 ############################################################################
 # General user routes:
@@ -81,6 +89,10 @@ def signup():
 @app.route('/info')
 def info():
     """Shows grid of superheros to select from"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
 
     return render_template("info.html")
 
