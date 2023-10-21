@@ -47,9 +47,23 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     """Route for logging in"""
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.authenticate(form.username.data, form.password.data)\
+        
+        if user:
+            do_login(user)
+            flash(f"Hello, {user.username}!", "success")
+            return redirect('/')
+        
+        flash("Invalid credentials.", "danger")
+
+    return render_template("login.html", form=form)
 
     
 
@@ -66,27 +80,11 @@ def login():
 ############################################################################
 # Homepage w/ login
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def homepage():
-    """Show homepage with login"""
+    """Show homepage with login and sign-up options"""
 
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        user = User.authenticate(form.username.data, form.password.data)\
-        
-        if user:
-            do_login(user)
-            flash(f"Hello, {user.username}!", "success")
-            return redirect('/home')
-        
-        flash("Invalid credentials.", "danger")
-
-    return render_template("home.html", form=form)
-
-@app.route('/home')
-def welcome():
-    return render_template("welcome.html")
+    return render_template("start.html")
 
 ##############################################################################
 # Turn off all caching in Flask
