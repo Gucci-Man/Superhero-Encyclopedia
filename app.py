@@ -157,7 +157,15 @@ def info():
     return render_template("info.html", user=user)
 
 
+@app.route("/info/<int:hero_id>")
+def hero_info(hero_id):
+    print(f"hero_id is {hero_id}")
 
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+
+    return render_template("hero.html")
 
 
 

@@ -29,6 +29,24 @@
     height: 200px;
     border: 1px solid black;
   }
+
+  .cell img {
+    background-size: contain;
+    max-width: 100%;
+  }
+
+  .cell-name {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    transition: visibility 0.2s ease-in-out;
+  }
+
+  .cell:hover .cell-name {
+    visibility: visible;
+  }
   
   .cell-1 {
     background-color: red;
