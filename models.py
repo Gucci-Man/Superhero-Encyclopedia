@@ -33,7 +33,7 @@ class User(db.Model):
     # TODO - add default image
     image_url = db.Column(
         db.Text,
-        #default=
+        default="/static/images/default-pic.png"
     )
 
     bio = db.Column(
@@ -61,7 +61,7 @@ class User(db.Model):
         return f"<User #{self.id}: {self.username}, {self.email}"
     
     @classmethod
-    def signup(cls, username, email, password, image_url):
+    def signup(cls, username, password, email, image_url):
         """Sign up user,
 
         Hashes password and adds user to system.

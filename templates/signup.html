@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h1>Welcome to the Superhero Encyclopedia</h1>
+        <h1>Registration</h1>
         <form method="POST" id="user_form">
             {{ form.hidden_tag()}}
 
@@ -12,8 +12,8 @@
                 {{ field(placeholder=field.label.text, class="form-control")}}
             {% endfor %}
 
-            <button class="btn btn-primary btn-block">Log in</button>
-            <a href="/signup" class="btn btn-secondary btn-block">Sign up</a>
+            <button class="btn btn-primary btn-block">Register</button>
+            <a href="/" class="btn btn-danger btn-block">Cancel</a>
         </form>
         
     </div>

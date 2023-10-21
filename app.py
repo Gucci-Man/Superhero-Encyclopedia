@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm, LoginForm
 from models import db, connect_db, User, Favorites
+from flask_bcrypt import Bcrypt
 
 CURR_USER_KEY = "curr_user"
 
@@ -47,11 +48,41 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    """Route to sign up new user"""
+
+    form = UserAddForm()
+
+    if form.validate_on_submit():
+        try:
+            user = User.signup(username=form.username.data, 
+                               password=form.password.data,
+                               email=form.email.data,
+                               image_url=form.image_url.data or User.image_url.default.arg,
+                               )
+            db.session.commit()
+
+        except IntegrityError as e:
+            flash("usernmae already taken", 'danger')
+            return render_template('signup.html', form=form)
+        
+        do_login(user)
+
+        return redirect("/info") #TODO add page and route to list all superheros
+        
+        
+    return render_template("signup.html", form=form)
+
 
 ############################################################################
 # General user routes:
 
+@app.route('/info')
+def info():
+    """Shows grid of superheros to select from"""
 
+    return render_template("info.html")
 
 
 
@@ -68,12 +99,12 @@ def homepage():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = User.authenticate(form.username.data, form.password.data)\
+        user = User.authenticate(form.username.data, form.password.data)
         
         if user:
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
-            return redirect('/')
+            return redirect('/info') # TODO - add page and route to list all superheros
         
         flash("Invalid credentials.", "danger")
 
