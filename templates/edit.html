@@ -14,7 +14,7 @@
 
         <button class="btn btn-primary btn-block">Update</button>
         <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Cancel</a>
-        <a href="/users/delete" class="btn btn-danger btn-block">Delete User</a>
+        <button class="btn btn-danger" formmethod="POST" formaction="/users/delete">Delete Profile</button>
     </form>
 </div>
 {% endblock %}
