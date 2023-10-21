@@ -123,6 +123,22 @@ def edit_user():
     return render_template('edit.html', form=form, user=user)
 
 
+@app.route("/users/delete", methods=["POST"])
+def delete_user():
+    """Delete User"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    do_logout()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    return redirect("/")
+
+
 ############################################################################
 # Main encyclopedia routes:
 
