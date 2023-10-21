@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
 
-#from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
+from forms import UserAddForm, LoginForm
 from models import db, connect_db, User, Favorites
 
 CURR_USER_KEY = "curr_user"
@@ -47,6 +47,12 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
+@app.route('/login', methods=['POST'])
+def login():
+    """Route for logging in"""
+
+    
+
 ############################################################################
 # General user routes:
 
@@ -58,13 +64,29 @@ def do_logout():
 
 
 ############################################################################
-# Homepage 
+# Homepage w/ login
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def homepage():
-    """Show homepage"""
+    """Show homepage with login"""
 
-    return render_template("home.html")
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.authenticate(form.username.data, form.password.data)\
+        
+        if user:
+            do_login(user)
+            flash(f"Hello, {user.username}!", "success")
+            return redirect('/home')
+        
+        flash("Invalid credentials.", "danger")
+
+    return render_template("home.html", form=form)
+
+@app.route('/home')
+def welcome():
+    return render_template("welcome.html")
 
 ##############################################################################
 # Turn off all caching in Flask
