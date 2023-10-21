@@ -6,3 +6,62 @@
     margin: auto;
     
 }
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .cell {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+  }
+  
+  .cell-1 {
+    background-color: red;
+  }
+  
+  .cell-2 {
+    background-color: blue;
+  }
+  
+  .cell-3 {
+    background-color: green;
+  }
+  
+  .cell-4 {
+    background-color: yellow;
+  }
+  
+  .cell-5 {
+    background-color: orange;
+  }
+  
+  .cell-6 {
+    background-color: purple;
+  }
+  
+  .cell-7 {
+    background-color: pink;
+  }
+  
+  .cell-8 {
+    background-color: brown;
+  }
+  
+  .cell-9 {
+    background-color: gray;
+  }
