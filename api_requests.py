@@ -5,7 +5,9 @@ from secret import API_KEY
 
 class Superhero:
     """Superhero object that contains their info"""
+
     def __init__(self, data):
+        self.id = data["id"]
         self.name = data["name"]
         self.aliases = data["biography"]["aliases"]
         self.birth_place = data["biography"]["place-of-birth"]
@@ -21,5 +23,4 @@ def get_request(hero_id):
         f"https://superheroapi.com/api/{API_KEY}/{hero_id}")
     
     data = resp.json()
-    
     return Superhero(data)

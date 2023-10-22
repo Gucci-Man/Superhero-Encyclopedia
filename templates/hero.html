@@ -2,6 +2,15 @@
 {% block content %}
 <a href="/superheros" class="btn btn-secondary btn-block">Go back</a>
 <div class="container">
+    <form method="POST" action="/superheros/{{superhero.id}}/fav">
+        <button class="btn btn-lg">
+        {% if superhero.id in id_list %}
+            <i class="fa-solid fa-star"></i>
+        {% else %}
+            <i class="fa-regular fa-star"></i>
+        {% endif %}
+        </button>
+    </form>
     <img src="{{superhero.image}}" alt="superhero image" width="300" height="350">
     <p>Name is {{superhero.name}}</p>
     <p>aliases are:</p>

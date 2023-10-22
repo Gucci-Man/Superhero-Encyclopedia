@@ -30,7 +30,6 @@ class User(db.Model):
         unique=True
     )
 
-    # TODO - add default image
     image_url = db.Column(
         db.Text,
         default="/static/images/default-pic.png"
@@ -117,13 +116,15 @@ class Favorites(db.Model):
     ) """
 
     # id from API, so no need to set as foreign key
-    superhero_id = db.Column(
+    hero_id = db.Column(
         db.Integer,
     )
 
     rating = db.Column(
         db.Integer,
     )
+
+    user = db.relationship("User")
 
 
 

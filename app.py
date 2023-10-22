@@ -2,10 +2,8 @@ import os
 
 from flask import Flask, render_template, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
-import requests
 from forms import UserAddForm, LoginForm, UserEditForm
 from models import db, connect_db, User, Favorites
-from secret import API_KEY
 from api_requests import get_request
 
 CURR_USER_KEY = "curr_user"
@@ -161,7 +159,7 @@ def info():
 
 @app.route("/superheros/<int:hero_id>")
 def hero_info(hero_id):
-    print(f"hero_id is {hero_id}")
+    """Show detailed info of superhero"""
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -170,9 +168,38 @@ def hero_info(hero_id):
     # Make API request then store response in data
     superhero = get_request(hero_id)
 
-    #print(f"superhero name is {superhero.name}")
+    # Retrieve list of hero ids from user favorites
+    # To check if this superhero is a user favorite
+    fav_list = g.user.favorites
+    id_list = [str(fav.hero_id) for fav in fav_list]
 
-    return render_template("hero.html", superhero=superhero)
+    return render_template("hero.html", superhero=superhero, id_list=id_list)
+
+
+@app.route("/superheros/<int:hero_id>/fav", methods=['POST'])
+def fav_hero(hero_id):
+    """Adding/removing superhero from user favorites"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    # Retrieve the superhero that was favorited if it already is
+    fav_hero = Favorites.query.filter_by(hero_id=hero_id, user_id=g.user.id).first()
+
+    # If that superhero is already favorited, then un-favorite it
+    # If favorite doesn't exist, then add to favorites
+    fav_list = g.user.favorites
+
+    if fav_hero in fav_list:
+        print("Favorite has to be unliked")
+        Favorites.query.filter_by(hero_id=hero_id, user_id=g.user.id).delete()
+    else:
+        add_fav = Favorites(hero_id=hero_id, user_id=g.user.id)
+        db.session.add(add_fav)
+    
+    db.session.commit()
+    return redirect(f"/superheros/{hero_id}")
 
 
 
