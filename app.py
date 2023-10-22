@@ -1,10 +1,12 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g
+from flask import Flask, render_template, flash, redirect, session, g
 from sqlalchemy.exc import IntegrityError
-
+import requests
 from forms import UserAddForm, LoginForm, UserEditForm
 from models import db, connect_db, User, Favorites
+from secret import API_KEY
+from api_requests import get_request
 
 CURR_USER_KEY = "curr_user"
 
@@ -69,7 +71,7 @@ def signup():
         
         do_login(user)
 
-        return redirect("/info") #TODO add page and route to list all superheros
+        return redirect("/superheros") #TODO add page and route to list all superheros
         
         
     return render_template("signup.html", form=form)
@@ -143,7 +145,7 @@ def delete_user():
 ############################################################################
 # Main encyclopedia routes:
 
-@app.route('/info')
+@app.route('/superheros')
 def info():
     """Shows grid of superheros to select from"""
 
@@ -157,7 +159,7 @@ def info():
     return render_template("info.html", user=user)
 
 
-@app.route("/info/<int:hero_id>")
+@app.route("/superheros/<int:hero_id>")
 def hero_info(hero_id):
     print(f"hero_id is {hero_id}")
 
@@ -165,7 +167,12 @@ def hero_info(hero_id):
         flash("Access unauthorized.", "danger")
         return redirect('/')
 
-    return render_template("hero.html")
+    # Make API request then store response in data
+    superhero = get_request(hero_id)
+
+    #print(f"superhero name is {superhero.name}")
+
+    return render_template("hero.html", superhero=superhero)
 
 
 
@@ -184,7 +191,7 @@ def homepage():
         if user:
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
-            return redirect('/info') # TODO - add page and route to list all superheros
+            return redirect('/superheros') # TODO - add page and route to list all superheros
         
         flash("Invalid credentials.", "danger")
 
