@@ -140,6 +140,28 @@ def delete_user():
     return redirect("/")
 
 
+@app.route("/users/favorites")
+def user_favs():
+    """Page for user favorites"""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect('/')
+    
+    # To store the user favorite heros and send to page
+    fav_heros = []
+    
+    # Retrieve list of hero ids from user favorites
+    # To retrieve the superhero info
+    fav_list = g.user.favorites
+    id_list = [fav.hero_id for fav in fav_list]
+
+    # Create superhero object from API request and add to list for page
+    for hero_id in id_list:
+        superhero = get_request(hero_id)
+        fav_heros.append(superhero)
+
+    return render_template("favorites.html", fav_heros=fav_heros, user=g.user)
 ############################################################################
 # Main encyclopedia routes:
 

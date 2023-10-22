@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Favorite's Page</h1>
+    <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Go Back</a>
+    <a href="/superheros" class="btn btn-secondary btn-block">Encyclopedia</a>
+{% for hero in fav_heros %}
+    <div class="container-fav">
+        <h3>Superhero: {{hero.name}}</h3>
+        <img src="{{hero.image}}" alt="{{hero.name}}" height="350" width="300">
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
