@@ -123,7 +123,7 @@ def edit_user():
     return render_template('edit.html', form=form, user=user)
 
 
-@app.route("/users/delete", methods=["POST"])
+@app.route("/users/delete", methods=["GET", "POST"])
 def delete_user():
     """Delete User"""
 
@@ -132,6 +132,9 @@ def delete_user():
         return redirect('/')
     
     do_logout()
+    
+    # Deleting user favorites
+    Favorites.query.filter_by(user_id=g.user.id).delete()
 
     db.session.delete(g.user)
     db.session.commit()
@@ -151,8 +154,7 @@ def user_favs():
     # To store the user favorite heros and send to page
     fav_heros = []
     
-    # Retrieve list of hero ids from user favorites
-    # To retrieve the superhero info
+    # Retrieve list of hero ids from user favorites to get superhero info
     fav_list = g.user.favorites
     id_list = [fav.hero_id for fav in fav_list]
 

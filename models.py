@@ -107,13 +107,8 @@ class Favorites(db.Model):
 
     user_id = db.Column(
         db.Integer,
-        db.ForeignKey('users.id', ondelete='cascade')
+        db.ForeignKey('users.id', ondelete='CASCADE')
     )
-
-    """ superhero_id = db.Column(
-        db.Integer,
-        db.ForeignKey('superheros.id', ondelete='cascade')
-    ) """
 
     # id from API, so no need to set as foreign key
     hero_id = db.Column(
@@ -126,22 +121,6 @@ class Favorites(db.Model):
 
     user = db.relationship("User")
 
-
-
-# TODO - would I want to create SQL tables for superheros if I am pulling data from APU?
-""" class Superhero(db.Model):
-
-    # superhero information
-    
-    # If saving in database, we could add information like ratings and/or reviews
-    
-
-    __tablename__ = 'superheros'
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-    ) """
 
 def connect_db(app):
     """Connecting this database to the lask app."""

@@ -35,8 +35,8 @@ i {
 .grid {
     display: flex;
     flex-direction: column;
-    width: 1000px;
-    height: 1000px;
+    width: 1400px;
+    height: 800px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -50,14 +50,16 @@ i {
   }
   
   .cell {
-    width: 200px;
-    height: 200px;
-    border: 1px solid black;
+    width: 148.5px;
+    height: 198px;
+    box-sizing: border-box;
+    margin: auto;
   }
 
   .cell img {
     background-size: contain;
-    max-width: 100%;
+    border: 5px solid white;
+    max-height: 100%;
   }
 
   .cell-name {
