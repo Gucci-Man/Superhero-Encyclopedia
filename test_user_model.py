@@ -6,6 +6,7 @@
 
 
 from unittest import TestCase
+from sqlalchemy import exc
 from models import db, User, Favorites
 from flask import session
 from app import app
@@ -84,6 +85,81 @@ class UserModelTestCase(TestCase):
         # User should have no favorites yet
         self.assertEqual(len(u.favorites), 0)
 
+    ####
+    #
+    # Signup Tests
+    #
+    ####
+
+    def test_valid_signup(self):
+        """Test that signing up is valid"""
+
+        test_user = User.signup("testtest", "testpass", "testtest@test.com", None)
+        uid = 555
+        test_user.id = uid
+        db.session.commit()
+
+        test_user = User.query.get(uid)
+
+        # Should be an instance of user
+        self.assertIsInstance(test_user, User)
+        self.assertEqual(test_user.username, "testtest")
+        self.assertEqual(test_user.email, "testtest@test.com" )
+
+        # Password should be encrypted
+        self.assertNotEqual(test_user.password, "testpass" )
+        self.assertTrue(test_user.password.startswith("$2b"))
+
+
+    def test_invalid_username_signup(self):
+        """Test signing up without a username"""
+
+        test_user = User.signup(None, "testpass", "testtest@test.com", None)
+        uid = 1234
+        test_user.id = uid
+        with self.assertRaises(exc.IntegrityError) as context:
+            db.session.commit()
+
+    def test_invalid_email_signup(self):
+        """Test signing up with an email"""
+
+        test_user = User.signup("testtest", "testpass", None, None)
+        uid = 4321
+        test_user.id = uid
+        with self.assertRaises(exc.IntegrityError) as context:
+            db.session.commit()
+
+    def test_invalid_password_signup(self):
+        """Test signing up with invalid password"""
+
+        with self.assertRaises(ValueError) as context:
+            User.signup("testtest", "", "testtest@test.com", None)
+        
+        with self.assertRaises(ValueError) as context:
+            User.signup("testtest", None, "testtest@test.com", None)
+
+    ####
+    #
+    # Authentication Tests
+    # 
+    ####
+
+    def test_valid_authentication(self):
+        """Test authentication works"""
+
+        u = User.authenticate(self.u1.username, "password1")
+        self.assertIsNotNone(u)
+        self.assertEqual(u.id, self.uid1)
+    
+    def test_invalid_username(self):
+        """Test authentication fails with invalid username"""
+
+        self.assertFalse(User.authenticate("nonuser", "password"))
+
+    def test_wrong_password(self):
+        """Test that invalid password fails"""
+
+        self.assertFalse(User.authenticate(self.u1.username, "wrongpassword"))
 
     ####
     #
@@ -104,7 +180,6 @@ class UserModelTestCase(TestCase):
         fav_test = Favorites.query.filter_by(user_id=self.uid1).first()
         self.assertEqual(fav_test.user.username, "test1")
 
-
     def test_remove_favorite(self):
         """Test removing favorite"""
         
@@ -117,7 +192,6 @@ class UserModelTestCase(TestCase):
         # Test user should now have 0 favorites
         self.assertEqual(len(self.u1.favorites), 0)
     
-    #TODO - test adding favorite as non-user
     def test_favorite_nonuser(self):
         """Test adding a favorite as a non-user"""
 
