@@ -142,7 +142,8 @@ def delete_user():
     flash("User Deleted", "info")
     return redirect("/")
 
-
+# TODO - let user go to the superhero info page when clicking on favorite superhero
+# TODO - Show favorite superheros as a table
 @app.route("/users/favorites")
 def user_favs():
     """Page for user favorites"""
