@@ -50,8 +50,10 @@ class UserModelTestCase(TestCase):
         hid1 = 303 
         self.hid1 = hid1
 
+        # Test user will have one favorite
         fav1 = Favorites(user_id=uid1, hero_id=hid1)
 
+        db.session.add(fav1)
         db.session.commit()
 
         self.fav1 = fav1
@@ -61,14 +63,11 @@ class UserModelTestCase(TestCase):
         self.hid2 = hid2
 
 
-
-
     def tearDown(self):
         """Clean up fouled transactions."""
 
         db.session.rollback()
         
-
     
     def test_user_model(self):
         """Testing basic user model"""
@@ -105,4 +104,27 @@ class UserModelTestCase(TestCase):
         fav_test = Favorites.query.filter_by(user_id=self.uid1).first()
         self.assertEqual(fav_test.user.username, "test1")
 
+
+    def test_remove_favorite(self):
+        """Test removing favorite"""
         
+        # Test user should have one favorite
+        self.assertEqual(len(self.u1.favorites), 1)
+
+        Favorites.query.filter_by(hero_id=self.hid1, user_id=self.uid1).delete()
+        db.session.commit()
+
+        # Test user should now have 0 favorites
+        self.assertEqual(len(self.u1.favorites), 0)
+    
+    #TODO - test adding favorite as non-user
+    def test_favorite_nonuser(self):
+        """Test adding a favorite as a non-user"""
+
+        # User ID that doesn't exist
+        invalid_uid = 123
+        
+        fav_test = Favorites(user_id=invalid_uid, hero_id=self.hid2)
+        
+        # Should not be an instance as the user_id does not exist
+        self.assertNotIsInstance(fav_test.user, User)
