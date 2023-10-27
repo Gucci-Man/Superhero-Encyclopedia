@@ -26,12 +26,21 @@ i {
 }
 
 .container-fav {
-  height: 450px;
-  width: 400px; 
-  text-align: center;
-  margin: auto;
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
 
+.cell-fav {
+  text-align: center;
+}
+
+.fav-header {
+  margin-top: 0;
+}
+
+.fav-img {
+  border-radius: 50%;
 }
 
 .grid {
@@ -75,38 +84,3 @@ i {
     visibility: visible;
   }
   
-  .cell-1 {
-    background-color: red;
-  }
-  
-  .cell-2 {
-    background-color: blue;
-  }
-  
-  .cell-3 {
-    background-color: green;
-  }
-  
-  .cell-4 {
-    background-color: yellow;
-  }
-  
-  .cell-5 {
-    background-color: orange;
-  }
-  
-  .cell-6 {
-    background-color: purple;
-  }
-  
-  .cell-7 {
-    background-color: pink;
-  }
-  
-  .cell-8 {
-    background-color: brown;
-  }
-  
-  .cell-9 {
-    background-color: gray;
-  }

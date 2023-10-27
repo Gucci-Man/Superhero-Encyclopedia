@@ -4,11 +4,15 @@
     <h1>Favorite's Page</h1>
     <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Go Back</a>
     <a href="/superheros" class="btn btn-secondary btn-block">Encyclopedia</a>
-{% for hero in fav_heros %}
     <div class="container-fav">
-        <h3>Superhero: {{hero.name}}</h3>
-        <img src="{{hero.image}}" alt="{{hero.name}}" height="350" width="300">
+        {% for hero in fav_heros %}
+          <div class="cell-fav">
+            <h3 class="fav-header">{{ hero.name }}</h3>
+            <a href="/superheros/{{hero.id}}">
+            <img src="{{ hero.image }}" alt="{{ hero.name }}" height="150" width="150" class="fav-img">
+            </a>
+          </div>
+        {% endfor %}
     </div>
-{% endfor %}
 </div>
 {% endblock %}
