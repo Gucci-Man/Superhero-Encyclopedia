@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .field {
   margin-top: 10px;
 }
@@ -12,7 +16,6 @@ i {
 }
 
 .container {
-    box-sizing: border-box;
     height: 450px;
     width: 400px; 
     text-align: center;
@@ -23,7 +26,6 @@ i {
 }
 
 .container-fav {
-  box-sizing: border-box;
   height: 450px;
   width: 400px; 
   text-align: center;
@@ -52,7 +54,6 @@ i {
   .cell {
     width: 148.5px;
     height: 198px;
-    box-sizing: border-box;
     margin: auto;
   }
 
