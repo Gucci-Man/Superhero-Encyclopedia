@@ -15,7 +15,7 @@ i {
   font-size: 50px;
 }
 
-.container {
+/* .container {
     height: 450px;
     width: 400px; 
     text-align: center;
@@ -23,7 +23,7 @@ i {
     position: relative;
     top: 200px;
 
-}
+} */
 
 .container-fav {
   display: grid;

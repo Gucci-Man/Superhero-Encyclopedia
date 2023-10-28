@@ -2,23 +2,48 @@
 {% block content %}
 <a href="/superheros" class="btn btn-secondary btn-block">Go back</a>
 <div class="container">
-    <form method="POST" action="/superheros/{{superhero.id}}/fav">
-        <button class="btn btn-lg">
-        {% if superhero.id in id_list %}
-            <i class="fa-solid fa-star"></i>
-        {% else %}
-            <i class="fa-regular fa-star"></i>
-        {% endif %}
-        </button>
-    </form>
-    <img src="{{superhero.image}}" alt="superhero image" width="300" height="350">
-    <p>Name is {{superhero.name}}</p>
-    <p>aliases are:</p>
-    {% for name in superhero.aliases %}
-        <li>{{name}}</li>
-    {% endfor %}
-    <p>Place of birth: {{superhero.birth_place}}</p>
-    <p>First Appearance: {{superhero.first_appear}}</p>
-    <p>Occupation: {{superhero.job}}</p>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="card text-center">
+                <form method="POST" action="/superheros/{{superhero.id}}/fav">
+                    <button class="btn btn-lg">
+                    {% if superhero.id in id_list %}
+                        <i class="fa-solid fa-star"></i>
+                    {% else %}
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                    </button>
+                </form>
+                <div class="card-header">
+                    {{superhero.name}}
+                </div>
+                <div class="card-body">
+                    <img class="img-fluid card-img-top" src="{{superhero.image}}" alt="superhero image" width="200" height="250">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <h5 class="card-title">Aliases:</h5>
+                            {% for name in superhero.aliases %}
+                                <p class="card-text">{{name}}</p>
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="card-title">Place of birth:</h5>
+                            <p class="card-text">{{superhero.birth_place}}</p>
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="card-title">First Appearance:</h5> 
+                            <p class="card-text">{{superhero.first_appear}}</p>
+                        </li>
+                        <li class="list-group-item">
+                            <h5 class="card-title">Occupation:</h5> 
+                            <p class="card-text">{{superhero.job}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
 </div>
 {% endblock %}

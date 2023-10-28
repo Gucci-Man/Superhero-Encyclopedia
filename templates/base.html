@@ -15,9 +15,9 @@
 <body>
     <div>
     {% for category, message in get_flashed_messages(with_categories=True) %}
-    <div class="alert alert-{{ category }}">{{ message }}</div>
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">{{ message }}
+    </div>
     {% endfor %}
-
     {% block content %}
     {% endblock %}
     </div>
