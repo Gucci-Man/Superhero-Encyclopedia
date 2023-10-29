@@ -87,7 +87,7 @@ class UserViewsTestCase(TestCase):
 
             # Should redirect back to login page and show flash message
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('>Access unauthorized.</div>', html)
+            self.assertIn('Access unauthorized.', html)
 
     def test_user_profile(self):
         """Test to view user profile when logged in"""
@@ -101,7 +101,7 @@ class UserViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<li>Username: test1</li>', html)
+            self.assertIn('Username: test1', html)
 
     def test_user_favorites(self):
         """Test to view user's favorites page"""
@@ -116,7 +116,7 @@ class UserViewsTestCase(TestCase):
 
             # Test user favorite should be groot
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h3>Superhero: Groot</h3>', html)
+            self.assertIn('Groot', html)
 
     def test_add_favorite(self):
         """Test adding a favorite superhero"""

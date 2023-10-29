@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #e23636;
+}
+
 .field {
   margin-top: 10px;
 }
@@ -33,6 +37,7 @@ i {
   left: 45px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: bold;
+  color: white;
 }
 
 .navbar .nav-item:last-child {
@@ -43,8 +48,23 @@ i {
   text-align: center;
 }
 
+#welcome-gif {
+  position: absolute;
+  bottom: 70px;
+  left: 710px;
+  
+}
+
 .fav-header {
   margin-top: 0;
+  font-weight: bold;
+  color: white;
+}
+
+.grid h1 {
+  font-weight: bold;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .fav-img {
@@ -60,6 +80,7 @@ i {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #e23636;
   }
   
   .row {
@@ -72,12 +93,15 @@ i {
     width: 148.5px;
     height: 198px;
     margin: auto;
+    
+    
   }
 
   .cell img {
     background-size: contain;
-    border: 5px solid white;
+    border: 5px solid #e23636;
     max-height: 100%;
+    background-color: #e23636;
   }
 
   .cell-name {
@@ -86,6 +110,9 @@ i {
     left: 50%;
     transform: translateX(-50%);
     visibility: hidden;
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
   }
 
   .cell:hover .cell-name {

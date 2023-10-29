@@ -3,8 +3,8 @@
 <div class="container">
     <div class="d-flex flex-row justify-content-center align-items-center">
         <div class="col-6">
-            <h1 class="display-3">Update Profile</h1>
-            <form method="POST" id="edit_form" class="border rounded p-3">
+            <h1 class="display-3 text-white font-weight-bold">Update Profile</h1>
+            <form method="POST" id="edit_form" class="border rounded p-3 bg-light text-dark">
                 {{ form.hidden_tag()}}
                 {% for field in form if field.widget.input_type != 'hidden' %}
                     <div class="form-group m-2">
