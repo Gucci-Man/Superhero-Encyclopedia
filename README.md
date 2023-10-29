@@ -1,4 +1,4 @@
-# Superhero/Villain Encyclopdedia
+# Superhero Encyclopdedia
 
 ## Created by Adel Ngo
 
