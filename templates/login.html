@@ -1,19 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h1>Welcome to the Superhero Encyclopedia</h1>
-        <form method="POST" id="user_form">
-            {{ form.hidden_tag()}}
-
-            {% for field in form if field.widget.input_type != 'hidden' %}
-                {% for error in field.errors %}
-                    <span class="text-danger">{{ error }}</span>
-                {% endfor %}
-                {{ field(placeholder=field.label.text, class="form-control field")}}
-            {% endfor %}
-
-            <button class="btn btn-primary btn-block">Log in</button>
-            <a href="/signup" class="btn btn-secondary btn-block">Sign up</a>
-        </form>
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <h3 id="login-title" class="display-5">Welcome to the Superhero Encyclopedia</h1>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center">
+            <div class="col-6">
+                <form method="POST" id="login_form" class="border rounded p-3 mt-5">
+                    {{ form.hidden_tag()}}
+                    {% for field in form if field.widget.input_type != 'hidden' %}
+                        <div class="form-group m-2">
+                            {% for error in field.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                            <label>{{field.label.text}}</label>
+                            {{ field(class="form-control")}}
+                        </div>
+                    {% endfor %}
+    
+                    <button class="btn btn-primary btn-block">Log in</button>
+                    <a href="/signup" class="btn btn-secondary btn-block">Sign up</a>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}

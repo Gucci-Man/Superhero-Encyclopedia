@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway' >
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://unpkg.com/popper"></script>
     <script src="https://unpkg.com/bootstrap"></script>
@@ -15,7 +16,8 @@
 <body>
     <div>
     {% for category, message in get_flashed_messages(with_categories=True) %}
-    <div class="alert alert-{{ category }} alert-dismissible" role="alert">{{ message }}
+    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+        {{ message }}
     </div>
     {% endfor %}
     {% block content %}

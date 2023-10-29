@@ -1,9 +1,6 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base-nav.html' %}
+{% block main %}
 <div>
-    <h1>Favorite's Page</h1>
-    <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Go Back</a>
-    <a href="/superheros" class="btn btn-secondary btn-block">Encyclopedia</a>
     <div class="container-fav">
         {% for hero in fav_heros %}
           <div class="cell-fav">

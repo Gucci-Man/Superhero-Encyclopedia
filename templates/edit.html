@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base-nav.html' %}
+{% block main %}
 <div class="container">
     <div class="d-flex flex-row justify-content-center align-items-center">
         <div class="col-6">
             <h1 class="display-3">Update Profile</h1>
-            <form method="POST" id="user_form" class="border rounded p-3">
+            <form method="POST" id="edit_form" class="border rounded p-3">
                 {{ form.hidden_tag()}}
                 {% for field in form if field.widget.input_type != 'hidden' %}
                     <div class="form-group m-2">

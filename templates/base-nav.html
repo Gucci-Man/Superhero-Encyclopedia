@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<h1>Hello There!</h1>
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/superheros">Superhero Encyclopedia</a>
+    <div class="collapse navbar-collapse">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/users/{{user.id}}">Profile</a>
+            <a class="nav-item nav-link active" href="/users/favorites">Favorites</a>
+            <a class="nav-item nav-link active" href="/logout">Logout</a>
+        </div>
+    </div>
+</nav>
+
+{% block main %}
+{% endblock %}
+
+{% endblock %}
