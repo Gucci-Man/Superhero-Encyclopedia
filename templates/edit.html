@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
-    <h1>Update Profile</h1>
-    <form method="POST" id="user_form">
-        {{ form.hidden_tag()}}
+<div class="container">
+    <div class="d-flex flex-row justify-content-center align-items-center">
+        <div class="col-6">
+            <h1 class="display-3">Update Profile</h1>
+            <form method="POST" id="user_form" class="border rounded p-3">
+                {{ form.hidden_tag()}}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                    <div class="form-group m-2">
+                        {% for error in field.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                        <label>{{field.label.text}}</label>
+                        {{ field(class="form-control")}}
+                    </div>
+                {% endfor %}
 
-        {% for field in form if field.widget.input_type != 'hidden' %}
-            {% for error in field.errors %}
-                <span class="text-danger">{{ error }}</span>
-            {% endfor %}
-            {{ field(placeholder=field.label.text, class="form-control")}}
-        {% endfor %}
-
-        <button class="btn btn-primary btn-block">Update</button>
-        <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Cancel</a>
-        <button class="btn btn-danger" formmethod="POST" formaction="/users/delete">Delete Profile</button>
-    </form>
+                <button class="btn btn-primary btn-block">Update</button>
+                <a href="/users/{{user.id}}" class="btn btn-secondary btn-block">Cancel</a>
+                <button class="btn btn-danger" formmethod="POST" formaction="/users/delete">Delete Profile</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
