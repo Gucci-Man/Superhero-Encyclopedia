@@ -49,10 +49,9 @@ i {
 }
 
 #welcome-gif {
-  position: absolute;
-  bottom: 70px;
-  left: 710px;
+  position: relative;
   
+  left: 300px;
 }
 
 .fav-header {
