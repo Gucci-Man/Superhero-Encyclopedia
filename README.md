@@ -12,7 +12,7 @@ This is a web app that functions as a superhero encyclopedia for registered user
 
 - **Editng User Profiles:** Once registered, users will be able to update their bio and location and change their username if they like. This showcases the web app's ability to *create* and *update* existing information. 
 
-- **Adding/Removing Favorites:** Users will be able to add and remove any favorited superheros. This adds more of a personal touch for each user. 
+- **Adding/Removing Favorites:** Users will be able to add and remove any favorited superheros. This adds more of a personal touch for each user and enables relationships between different types of data. 
 
 - **Viewing Superhero Info:** Users may click on any displayed superhero and are able to *read* information fetched from an external API. 
 
@@ -32,9 +32,11 @@ This is a web app that functions as a superhero encyclopedia for registered user
 
 6. The "Favorites" navbar link takes the user to view any favorited superheros. They may click on them thus redirecting to the superhero's info page. 
 
-7. The "Logout" navbar link logs out the user from the app.
+7. The "Superhero Encyclopedia" navbar link takes the user back to the homepage that displays all the superheros. 
 
-8. If a user still has a registered account, they may log back in. 
+8. The "Logout" navbar link logs out the user from the app.
+
+9. If a user still has a registered account, they may log back in. 
 
 ## Technology Stack
 
