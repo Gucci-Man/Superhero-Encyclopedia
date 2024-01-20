@@ -2,11 +2,20 @@
 
 ## Created by Adel Ngo
 
-**API:** https://superheroapi.com/
-
-**Deployed link:** https://superhero-encyclopedia.onrender.com
+### Description
 
 This is a web app that functions as a superhero encyclopedia for registered users. Users will be able to select from any of the displayed superheros and retrieve information about them. They are also able to select and deselect their favorite superheros. 
+
+**API:** https://superheroapi.com/
+
+**Login Page:**
+![login page](/pics/login.png)
+
+**Main Page:**
+![main page](/pics/main_page.png)
+
+**Hero Info:**
+![hero info](/pics/hero_info.png)
 
 ## Features
 
@@ -40,17 +49,18 @@ This is a web app that functions as a superhero encyclopedia for registered user
 
 ## Technology Stack
 
-- Python, HTML and CSS
+- **Python, HTML and CSS**
 
-- Flask 
+- **Flask**
 
-- WTForms
+- **PostgreSQL** 
 
-- Bcrypt
+- **Bootstrap**
 
-- SQLAlchemy
+- **WTForms**
 
-- PostgreSQL 
+- **Bcrypt**
 
-- Jinja 
+- **SQLAlchemy**
 
+- **Jinja** 
