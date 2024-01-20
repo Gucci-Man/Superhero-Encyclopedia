@@ -1,4 +1,4 @@
-# Superhero Encyclopdedia
+# Superhero Encyclopedia
 
 ## Created by Adel Ngo
 
